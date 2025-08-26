@@ -1,0 +1,6 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+local replicatedStorage = game:GetService("ReplicatedStorage")
+mouse.Button1Down:Connect(function()
+  replicatedStorage.FireballEvent:FireServer(mouse.Hit.Position)
+end)

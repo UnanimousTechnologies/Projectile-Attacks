@@ -1,0 +1,19 @@
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local fireballEvent = replicatedStorage:WaitForChild("FireballEvent")
+fireballEvent.OnServerEvent:Connect(function(player, targetPosition)
+    -- Create a fireball
+    local fireball = Instance.new("Part")
+    fireball.Shape = Enum.PartType.Ball
+    fireball.Size = Vector3.new(2, 2, 2)
+    fireball.Position = player.Character.Head.Position + Vector3.new(0, 5, 0)
+    fireball.BrickColor = BrickColor.new("Bright red")
+    fireball.Anchored = false
+    fireball.CanCollide = true
+    fireball.Parent = workspace
+    -- Add velocity towards target
+    local bodyVelocity = Instance.new("BodyVelocity")
+    bodyVelocity.Velocity = (targetPosition - fireball.Position).Unit * 100
+    bodyVelocity.Parent = fireball
+    -- Cleanup after 5 seconds
+    game:GetService("Debris"):AddItem(fireball, 5)
+end)
